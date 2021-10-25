@@ -2,22 +2,17 @@
 
 namespace AcMarche\Conseil;
 
-
 use PDO;
 
 class ConseilDb
 {
-    /**
-     * @var \PDO
-     */
-    private $dbh;
+    private \PDO $dbh;
 
     public function __construct()
     {
-        Env::loadEnv();
         $dsn      = 'mysql:host=localhost;dbname=conseil';
-        $username = $_ENV['DB_CONSEIL_USER'];
-        $password = $_ENV['DB_CONSEIL_PASS'];
+        $username = DB_USER;
+        $password = DB_PASSWORD;
         $options  = array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );

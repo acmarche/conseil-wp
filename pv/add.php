@@ -1,6 +1,7 @@
 <?php
 
-require '../../../vendor/autoload.php';
+require_once '../../../wp-load.php';
+require_once '../../../vendor/autoload.php';
 
 use AcMarche\Conseil\ConseilConstantes;
 use Symfony\Component\Filesystem\Exception\IOException;
