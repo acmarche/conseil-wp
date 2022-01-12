@@ -2,6 +2,10 @@
 
 namespace AcMarche\Conseil;
 
+use DateTime;
+use Exception;
+use PDOException;
+use PDOStatement;
 use PDO;
 
 class ConseilDb
@@ -22,7 +26,7 @@ class ConseilDb
 
     public function getAllOrdre()
     {
-        $today = new \DateTime();
+        $today = new DateTime();
         $sql   = 'SELECT * FROM ordre_jour WHERE `date_fin_diffusion` >= '.$today->format(
                 'Y-m-d'
             ).' ORDER BY `date_ordre` DESC ';
@@ -45,17 +49,12 @@ class ConseilDb
     }
 
     /**
-     * @param string $nom
-     * @param string $dateOrdre
-     * @param string $dateFin
-     * @param string $fileName
      *
-     * @return bool|string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function insertOrdre(string $nom, string $dateOrdre, string $dateFin, string $fileName)
+    public function insertOrdre(string $nom, string $dateOrdre, string $dateFin, string $fileName): bool|string
     {
-        $today = new \DateTime();
+        $today = new DateTime();
         $today = $today->format('Y-m-d');
         $req   = "INSERT INTO `ordre_jour` (`nom`,`date_ordre`,`date_fin_diffusion`,`file_name`,`createdAt`,`updatedAt`) 
 VALUES (?,?,?,?,?,?)";
@@ -70,15 +69,15 @@ VALUES (?,?,?,?,?,?)";
 
         try {
             return $stmt->execute();
-        } catch (\PDOException $exception) {
+        } catch (PDOException $exception) {
             return $exception->getMessage();
         }
 
     }
 
-    public function insertPv(string $nom, string $datePv, string $fileName)
+    public function insertPv(string $nom, string $datePv, string $fileName): bool|string
     {
-        $today = new \DateTime();
+        $today = new DateTime();
         $today = $today->format('Y-m-d');
         $req   = "INSERT INTO `pv` (`nom`,`date_pv`,`file_name`,`createdAt`,`updatedAt`) 
 VALUES (?,?,?,?,?)";
@@ -92,13 +91,13 @@ VALUES (?,?,?,?,?)";
 
         try {
             return $stmt->execute();
-        } catch (\PDOException $exception) {
+        } catch (PDOException $exception) {
             return $exception->getMessage();
         }
 
     }
 
-    public function deleteOrdre(string $dateOrdre, string $fileName)
+    public function deleteOrdre(string $dateOrdre, string $fileName): bool|string
     {
         $req = 'DELETE FROM ordre_jour WHERE date_ordre = ? AND file_name = ?';
 
@@ -108,12 +107,12 @@ VALUES (?,?,?,?,?)";
 
         try {
             return $stmt->execute();
-        } catch (\PDOException $exception) {
+        } catch (PDOException $exception) {
             return $exception->getMessage();
         }
     }
 
-    public function deletePv(string $datePv, string $fileName)
+    public function deletePv(string $datePv, string $fileName): bool|string
     {
         $req = 'DELETE FROM pv WHERE date_pv = ? AND file_name = ?';
 
@@ -123,12 +122,12 @@ VALUES (?,?,?,?,?)";
 
         try {
             return $stmt->execute();
-        } catch (\PDOException $exception) {
+        } catch (PDOException $exception) {
             return $exception->getMessage();
         }
     }
 
-    public function execQuery($sql)
+    public function execQuery($sql): bool|PDOStatement
     {
         // var_dump($sql);
         $query = $this->dbh->query($sql);
@@ -137,7 +136,7 @@ VALUES (?,?,?,?,?)";
             //    var_dump($error[2]);
             // mail('jf@marche.be', 'duobac error sql', $error[2]);
 
-            throw new \Exception($error[2]);
+            throw new Exception($error[2]);
         };
 
         return $query;

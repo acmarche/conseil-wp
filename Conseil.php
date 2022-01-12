@@ -22,9 +22,7 @@ class Conseil
         $finder = new Finder();
         $finder->files()->in($dir);
         $finder->sort(
-            function ($a, $b) {
-                return ($a->getrelativePathname() > $b->getrelativePathname()) ? -1 : 1;
-            }
+            fn($a, $b) => ($a->getrelativePathname() > $b->getrelativePathname()) ? -1 : 1
         );
         $i = 0;
 
@@ -38,7 +36,7 @@ class Conseil
             try {
                 $date_time = new DateTime($fichier);
                 $date_fr   = $date_time->format("d-m-Y");
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $date_fr = $fileName;
             }
             $i++;

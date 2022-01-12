@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../../wp-load.php';
-require_once '../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../wp-load.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use AcMarche\Conseil\ConseilConstantes;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -18,7 +18,7 @@ if ($fileName) {
         $filesystem->remove(ConseilConstantes::PV_DIRECTORY.$fileName);
         echo json_encode(['result' => '2ok']);
     } catch (IOException $IOException) {
-        echo json_encode(['error' => 'Impossible de supprimer le fichier '.$IOException->getMessage()]);
+        echo json_encode(['error' => 'Impossible de supprimer le fichier '.$IOException->getMessage()], JSON_THROW_ON_ERROR);
 
         return;
     }
