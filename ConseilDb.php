@@ -97,13 +97,13 @@ VALUES (?,?,?,?,?)";
 
     }
 
-    public function deleteOrdre(string $dateOrdre, string $fileName): bool|string
+    public function deleteExpireOrdre(\DateTimeInterface $date): bool|string
     {
-        $req = 'DELETE FROM ordre_jour WHERE date_ordre = ? AND file_name = ?';
+        $req = 'DELETE FROM ordre_jour WHERE date_fin_diffusion < ?';
 
+        $dateString = $date->format('Y-m-d');
         $stmt = $this->dbh->prepare($req);
-        $stmt->bindParam(1, $dateOrdre);
-        $stmt->bindParam(2, $fileName);
+        $stmt->bindParam(1, $dateString);
 
         try {
             return $stmt->execute();
