@@ -1,9 +1,9 @@
 <?php
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-require_once __DIR__ . '/../../../wp-load.php';
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../wp-load.php';
+require_once __DIR__ . '/../../../../vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use AcMarche\Conseil\ConseilConstantes;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
