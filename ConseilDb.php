@@ -27,9 +27,7 @@ class ConseilDb
     public function getAllOrdre()
     {
         $today = new DateTime();
-        $sql   = 'SELECT * FROM ordre_jour WHERE `date_fin_diffusion` >= '.$today->format(
-                'Y-m-d'
-            ).' ORDER BY `date_ordre` DESC ';
+        $sql   = 'SELECT * FROM ordre_jour ORDER BY `date_ordre` DESC ';
         $query = $this->execQuery($sql);
 
         return $query->fetchAll();
