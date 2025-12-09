@@ -14,7 +14,7 @@ class ConseilDb
 
     public function __construct()
     {
-        $dsn      = 'mysql:host=localhost;dbname=conseil';
+        $dsn      = 'mysql:host=127.0.0.1;dbname=conseil';
         $username = DB_USER;
         $password = DB_PASSWORD;
         $options  = array(
